@@ -26,10 +26,10 @@ def probabilidad_x_si_y(df,x,columnaY,valY,a):
         denom = df.size +  cardinalidad(row)*cardinalidad(valY)*a
         numerador = card / denom
         #confirmar los valores del segundo denominador, en la pizarra sale c * y * a,  sera cy *a?
-        denom2 = (conteo(y) +a)/(df.size + cardinalidadVariablesTotal * )
+        denom2 = (conteo(y) +a)/(df.size + cardinalidad(y) * a )
         totes= numerador / denom2
         toReturn[row] = (totes)
     return toReturn
 
 def predict(clase,variables,valores):
-    
+
