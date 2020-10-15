@@ -10,7 +10,6 @@ def cardinalidad(df,columnaX):
 def conteo(x,columnaX):
 
     return 0
-<<<<<<< HEAD
 
 def find_variables(x, columnaX):
     l = []
@@ -20,10 +19,6 @@ def find_variables(x, columnaX):
     return l
 
 
-=======
-def find_variables(columnaX):
-    return 0
->>>>>>> 47ea690aa907b04425215d2c278c49509a83d418
 def estimar_marginal(df,X,a):
     d = {}
     
