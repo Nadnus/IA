@@ -31,4 +31,5 @@ def probabilidad_x_si_y(df,x,columnaY,valY,a):
         toReturn[row] = (totes)
     return toReturn
 
-
+def predict(clase,variables,valores):
+    
