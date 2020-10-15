@@ -2,7 +2,13 @@ import pandas as pd
 
 
 def conteo_interseccion(df, parametros, columnas):
-    return 0
+    col1 = df[columnas[0]]
+    col2 = df[columnas[1]]
+    cont = 0
+    for i in range(len(col1)):
+        if(col1[i] == parametros[0] and col2[i] == parametros[1]):
+            cont += 1
+    return cont
 
 
 def cardinalidad(df, columnaX):
@@ -11,8 +17,12 @@ def cardinalidad(df, columnaX):
 
 
 def conteo(x, columnaX):
+    cont = 0
+    for i in columnaX:
+        if i == x:
+            cont +=1
 
-    return 0
+    return cont
 
 
 def find_variables(x, columnaX):
