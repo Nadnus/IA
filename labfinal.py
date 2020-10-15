@@ -16,4 +16,4 @@ def decode(listaFinal,x,y):
     for valorY in valoresY:
         for valorX in valoresX:
             listaNombres.append(valorX,valorY)
-    df = pd.DataFrame   (list(zip(columns = [])))
+    df = pd.DataFrame   (list(zip(valoresY,valoresX)), columns = [y,x])
