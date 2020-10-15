@@ -1,6 +1,12 @@
 import pandas as pd
 def conteo_interseccion(df,parametros,columnas):
     return 0
+def cardinalidad(x,columnaX):
+    return 0 
+def conteo(x,columnaX):
+    return 0
+def find_variables(x, columnaX):
+    return 0
 def estimar_marginal(df,X,a):
     d = {}
     
@@ -23,10 +29,10 @@ def probabilidad_x_si_y(df,x,columnaY,valY,a):
     for row in variables[x]:
         parametros = [row,valY]
         card = conteo_interseccion(df,parametros,columnas) + a
-        denom = df.size +  cardinalidad(row)*cardinalidad(valY)*a
+        denom = df.size +  cardinalidad(row, x)*cardinalidad(valY , columnaY)*a
         numerador = card / denom
         #confirmar los valores del segundo denominador, en la pizarra sale c * y * a,  sera cy *a?
-        denom2 = (conteo(y) +a)/(df.size + cardinalidad(y) * a )
+        denom2 = (conteo(y, columnaY) +a)/(df.size + cardinalidad(y, columnaY) * a )
         totes= numerador / denom2
         toReturn[row] = (totes)
     return toReturn
