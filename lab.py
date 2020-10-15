@@ -1,12 +1,24 @@
 import pandas as pd
 def conteo_interseccion(df,parametros,columnas):
     return 0
-def cardinalidad(x,columnaX):
-    return 0 
+
+def cardinalidad(df,columnaX):
+		cardinality = len(pd.Index(df[col]).value_counts())
+  	return cardinality
+
+
 def conteo(x,columnaX):
+
     return 0
+
 def find_variables(x, columnaX):
-    return 0
+    l = []
+    for elem in x[columnaX]:
+    	if elem not in l:
+    		l.append(elem)
+    return l
+
+
 def estimar_marginal(df,X,a):
     d = {}
     
