@@ -16,9 +16,9 @@ def cardinalidad(df, columnaX):
     return cardinality
 
 
-def conteo(x, columnaX):
+def conteo(df,x, columnaX):
     cont = 0
-    for i in columnaX:
+    for i in df[columnaX]:
         if i == x:
             cont +=1
 
@@ -53,18 +53,18 @@ def probabilidad_x_si_y(df, x, columnaY, valY, a):
     toReturn = []
     columnas = [x, columnaY]
     # faltan separar las variables en variables []
-    variables = find_variables(x)
-    for row in variables[x]:
+    variables = find_variables(df,x)
+    for row in variables:
         parametros = [row, valY]
         card = conteo_interseccion(df, parametros, columnas) + a
-        denom = df.size + cardinalidad(row, x)*cardinalidad(valY, columnaY)*a
+        denom = df.size + conteo(df,row, x)*conteo(df,valY, columnaY)*a
         numerador = card / denom
         # confirmar los valores del segundo denominador, en la pizarra sale c * y * a,  sera cy *a?
-        denom2 = (conteo(valY, columnaY) + a) / \
-            (df.size + cardinalidad(valY, columnaY) * a)
+        denom2 = (conteo(df,valY, columnaY) + a) / \
+            (df.size + cardinalidad(df, columnaY) * a)
         totes = numerador / denom2
         toReturn.append(totes)
     return toReturn
 
 
-def predict(clase, variables, valores):
+#def predict(clase, variables, valores):
