@@ -1,7 +1,7 @@
 def inference(df, targetClass, evidenceList, evidenceValueList, alpha):
     marginal = estimar_marginal(df, evidenceList, alpha)
     conditional = estimar_condicional(df, evidenceList, targetClass, alpha)
-    targetClassValues = getValues(df, targetClass)
+    targetClassValues = findVariables(df, targetClass)
 
     result = []
 
