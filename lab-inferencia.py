@@ -1,16 +1,37 @@
+from reader import reader
+from utils import *
+from marginal.main import estimar_marginal
+# from condicional.main import estimar_condicional
+
+
+def findMarginalProb(evidence, mat):
+    for i in mat:
+        if i[0] == evidence:
+            return i[1]
+
+def findConditionalProb(value1, value2):
+    return ""
+
+
 def inference(df, targetClass, evidenceList, evidenceValueList, alpha):
-    marginal = estimar_marginal(df, evidenceList, alpha)
-    conditional = estimar_condicional(df, evidenceList, targetClass, alpha)
-    targetClassValues = findVariables(df, targetClass)
+    for evidenceIndex in range(len(evidenceList)):
+        marginales = estimar_marginal(df, evidenceList[evidenceIndex], alpha)
+        # conditional = estimar_conditional() # depende del esquema de sebastian, como se calcula la condicional
+        evidenceProb = findMarginalProb(
+            evidenceValueList[evidenceIndex], marginales)
 
-    result = []
+        targetClassValues = findVariables(df, targetClass)
 
-    for value in targetClassValues:
-        prob = marginal[evidenceValueList] * conditional[evidenceList = evidenceValueList & & targetClass = value]
-        result.append(prob)
+        result = []
+        for value in targetClassValues:
+            tempResult = []
+            targetAndEvidenceProb = findConditionalProb(
+                value, evidenceValueList[evidenceIndex])  # esto es lo de la funcion de Fernando
+            mult = evidenceProb * targetAndEvidenceProb
+            tempResult.append(mult)
+        result.append(tempResult)
 
-    print("most likely ", max(result))
-    return results
+    print(result)
 
-
-print(inference(df, 'Y', ['X'], ['0']))
+df = reader('datasets/training_dataset1.csv')
+print(inference(df, 'B', ['A'], ['0'], 1))
