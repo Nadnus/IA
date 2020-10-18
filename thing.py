@@ -5,17 +5,21 @@ import itertools
 
 def intersect_count(df, valores, columnas):
     l = len(valores)
+    if l == 1:
+        return lb.conteo(df,valores[0],columnas[0])
     rows = []
     for tup in df.itertuples():
-
         var1 = getattr(tup,columnas[0])
         var2 = getattr(tup,columnas[1])
-        if var1 == valores[0] and var2 == valores[1]:
+        e1 = var1 == valores[0]
+        e2 = var2 == valores[1]
+        if e1 and e2:
             rows.append(tup)
-    for i in range(2, l-1):
+    for i in range(2,l):
         to_remove = []
         for tup in rows:
-            if tup[columnas[i]] != valores[i]:
+            a = getattr(tup,columnas[i])
+            if  a != valores[i]:
                 to_remove.append(tup)
         for tup in to_remove:
             rows.remove(tup)
@@ -47,7 +51,7 @@ def condicional(df, target_var, variables, a):
         num2 = intersect_count(df, combo2, variables) + a
         denom2 = df.size + card_acum
         resultados[combo] = (numerador1/denom1)/(num2/denom2)
-    print (len(resultados))
+    print ((resultados))
 
 data = pd.read_csv("weather.csv")
-condicional(data, "outlook", ["temperature", "humidity"],1)
+condicional(data, "outlook", ["windy", "play"],0.5)
