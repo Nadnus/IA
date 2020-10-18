@@ -18,4 +18,8 @@ def decode(df,listaFinal,x,y):
             listaNombres.append(valorX,valorY)
     df = pd.DataFrame   (list(zip(valoresY,valoresX)), columns = [y,x])
 data = pd.read_csv("weather.csv")
-print(encontrar_condicional(data,"outlook","humidity",["high","normal"],1))
+result = encontrar_condicional(data,"outlook","humidity",["high"],1)
+counter = 0
+for element in result:
+    counter = counter + element
+print (result)
