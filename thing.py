@@ -55,7 +55,7 @@ def condicional(df, target_var, variables, a):
         frac1 = (numerador1/denom1)
         frac2 = (num2/denom2)
         resultados[combo] = frac1/frac2
-    print ((resultados))
+    return ((resultados))
 
 data = pd.read_csv("weather.csv")
 condicional(data, "outlook", ["play", "windy"],1)
