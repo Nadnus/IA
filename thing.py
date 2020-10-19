@@ -6,20 +6,20 @@ import itertools
 def intersect_count(df, valores, columnas):
     l = len(valores)
     if l == 1:
-        return lb.conteo(df,valores[0],columnas[0])
+        return lb.conteo(df, valores[0], columnas[0])
     rows = []
     for tup in df.itertuples():
-        var1 = getattr(tup,columnas[0])
-        var2 = getattr(tup,columnas[1])
+        var1 = getattr(tup, columnas[0])
+        var2 = getattr(tup, columnas[1])
         e1 = var1 == valores[0]
         e2 = var2 == valores[1]
         if e1 and e2:
             rows.append(tup)
-    for i in range(2,l):
+    for i in range(2, l):
         to_remove = []
         for tup in rows:
-            a = getattr(tup,columnas[i])
-            if  a != valores[i]:
+            a = getattr(tup, columnas[i])
+            if a != valores[i]:
                 to_remove.append(tup)
         for tup in to_remove:
             rows.remove(tup)
@@ -37,8 +37,9 @@ def condicional(df, target_var, variables, a):
     lista_vars = []
     for v in valores:
         lista_vars.append(valores[v])
-
+    lista_trunca = lista_vars[1:]
     combos = list(itertools.product(*lista_vars))
+    otros_combos = list(itertools.product(*lista_trunca))
 
     print(len(combos))
     resultados = {}
@@ -51,11 +52,22 @@ def condicional(df, target_var, variables, a):
         numerador1 = intersect_count(df, combo, [target_var]+variables) + a
         denom1 = df_len + card_acum_x
         num2 = intersect_count(df, combo2, variables) + a
-        denom2 =  df_len + card_acum
+        denom2 = df_len + card_acum
         frac1 = (numerador1/denom1)
         frac2 = (num2/denom2)
         resultados[combo] = frac1/frac2
+    for c in otros_combos:
+        acc = 0
+        for val in valores[target_var]:
+            print (type(c))
+            print (type(val))
+            key = (val,) + c
+            acc = acc + resultados[key]
+        for val in valores[target_var]:
+            resultados[(val,) + c] = resultados[(val,) + c]/acc
+
     return ((resultados))
 
+
 data = pd.read_csv("weather.csv")
-condicional(data, "outlook", ["play", "windy"],1)
+print(condicional(data, "outlook", ["play", "windy"], 1))
