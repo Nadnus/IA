@@ -20,12 +20,12 @@ def estimar_marginal(df, X, alpha):
         f = (freqX[0] + alpha)/(size+(alpha*len(queue)))
         res.append(f)
 
-    result = []
+    result = {}
     for j in range(len(queue)):
-        insideList = []
-        insideList.append(queue[j])
-        insideList.append(res[j])
-        result.append(insideList)
+        # insideList = []
+        # insideList.append(queue[j])
+        # insideList.append(res[j])
+        result[queue[j]] = res[j]
     
     return result
 
