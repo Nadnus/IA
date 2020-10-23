@@ -28,7 +28,6 @@ def intersect_count(df, valores, columnas):
 
 def condicional(df, target_var, variables, a):
     df_len = len(df)
-    print(df_len)
     valores = {}
     valores[target_var] = lb.find_variables(df, target_var)
     for var in variables:
@@ -41,7 +40,6 @@ def condicional(df, target_var, variables, a):
     combos = list(itertools.product(*lista_vars))
     otros_combos = list(itertools.product(*lista_trunca))
 
-    print(len(combos))
     resultados = {}
     card_acum = a
     for elem in variables:
@@ -59,8 +57,6 @@ def condicional(df, target_var, variables, a):
     for c in otros_combos:
         acc = 0
         for val in valores[target_var]:
-            print (type(c))
-            print (type(val))
             key = (val,) + c
             acc = acc + resultados[key]
         for val in valores[target_var]:
@@ -68,6 +64,3 @@ def condicional(df, target_var, variables, a):
 
     return ((resultados))
 
-
-data = pd.read_csv("weather.csv")
-print(condicional(data, "outlook", ["play", "windy"], 1))
