@@ -1,6 +1,7 @@
 import lab as lb
 import pandas as pd
 import itertools
+import marginal.main as marg
 
 
 def intersect_count(df, valores, columnas):
@@ -27,6 +28,8 @@ def intersect_count(df, valores, columnas):
 
 
 def condicional(df, target_var, variables, a):
+    if not variables:
+        return marg.estimar_marginal(df,target_var,a)
     df_len = len(df)
     valores = {}
     valores[target_var] = lb.find_variables(df, target_var)
