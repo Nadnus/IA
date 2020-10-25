@@ -27,7 +27,7 @@ def intersect_count(df, valores, columnas):
     return len(rows)
 
 
-def condicional(df, target_var, variables, a):
+def condicional(df, target_var, variables, a, flag = False):
     if not variables:
         return marg.estimar_marginal(df,target_var,a)
     df_len = len(df)
@@ -64,6 +64,8 @@ def condicional(df, target_var, variables, a):
             acc = acc + resultados[key]
         for val in valores[target_var]:
             resultados[(val,) + c] = resultados[(val,) + c]/acc
+    if flag:
+        return ([[target_var, variables],resultados])
 
     return ((resultados))
 
