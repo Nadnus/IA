@@ -1,5 +1,7 @@
 import lab as lb
 import thing as tg
+import topologicalOrder as to
+import productoria as prod
 import collections
 import itertools
 
@@ -69,9 +71,9 @@ def sumProductVE(df,consulta, ocultas, nombreEvidencia, valorEvidencia, m):
 
 
 
-	# cosito raro-> z ordenado topologicamente
-	################FUNCION DE CHAVEZ (Modificar z para que este ordenado)
-	# z = funcion(z,m)
+	# ordenar topologicamente
+	
+	z = to.orderedList(m,df,z)
 
 	# Para todos los elementos de Z
 	# hacer sum product eliminate de phi
@@ -136,8 +138,8 @@ def sumProductEliminateVar(z,phi):
 
 
 	# Multiplicar todos los elementos de phi', devuelve diccionario
-	######### Funcion de chavez
-	# psi = funcion(elementos de phi_prime)
+	
+	psi = prod.productoria(phi_prime)
 
 
 	# tau -> Comprimir eliminando z_i del diccionario, los valores iguales se suman
