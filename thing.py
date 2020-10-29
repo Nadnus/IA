@@ -4,6 +4,7 @@ import itertools
 import marginal.main as marg
 
 
+
 def intersect_count(df, valores, columnas):
     l = len(valores)
     if l == 1:
@@ -69,3 +70,23 @@ def condicional(df, target_var, variables, a, flag = False):
 
     return ((resultados))
 
+def condicionalFijas(df,fijas_nombre,fijas,variables_usadas = []):
+    valid_combos = []
+    if not variables_usadas:
+        variables_usadas = df.columns
+    valid_values = []
+    for i in range(0,len(variables_usadas)-1):
+        to_add = []
+        if variables_usadas[i] not in fijas_nombre:
+            to_add.append(lb.find_variables(df,variables_usadas[i]))
+            
+        else:
+            index = fijas_nombre.index(variables_usadas[i])
+            to_add.append([fijas[index]])
+        valid_values.append(to_add[0])
+    valid_combos  = list(itertools.product(*valid_values))
+    return valid_combos
+
+    
+data = pd.read_csv('weather.csv')
+print(condicionalFijas(data,['outlook','windy'],['overcast','TRUE']))
