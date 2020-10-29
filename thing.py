@@ -75,7 +75,7 @@ def condicionalFijas(df,fijas_nombre,fijas,variables_usadas = []):
     if not variables_usadas:
         variables_usadas = df.columns
     valid_values = []
-    for i in range(0,len(variables_usadas)-1):
+    for i in range(len(variables_usadas)):
         to_add = []
         if variables_usadas[i] not in fijas_nombre:
             to_add.append(lb.find_variables(df,variables_usadas[i]))
