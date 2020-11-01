@@ -54,7 +54,7 @@ def entropia(df, matrix, alpha):
             b = (lb.conteo_interseccion(df,c,df.columns.values))
             val =  a*b
             sumatoria = sumatoria + val
-    return sumatoria
+    return -sumatoria
 
 
 data = pd.read_csv("weather.csv")
