@@ -91,9 +91,10 @@ def condicionalFijas(df,fijas_nombre,fijas,variables_usadas = []):
 #
 
 #
-def probVar(df,var,nombres_fijas,valores_fijas,factores,a):
+def probVar(df,var,nombres_fijas,valores_fijas,rb):
     valores_var = lb.find_variables(df,var)
     to_return = {}
+    factores = rb.conds
     for valor in valores_var:
         mult = 1
         for f in factores:
@@ -107,6 +108,14 @@ def probVar(df,var,nombres_fijas,valores_fijas,factores,a):
                 my_cond = f[1]
                 mult = mult * my_cond[combo]
         to_return[valor] = mult
+    for marginal in rb.marg:
+        if marginal[0][0] == var:
+            marg_values = marginal[1]
+            for v in marg_values:
+                to_return[v] *= marg_values[v] 
+        else:
+            continue
+
     return to_return
         
 
