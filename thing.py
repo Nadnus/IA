@@ -87,6 +87,42 @@ def condicionalFijas(df,fijas_nombre,fijas,variables_usadas = []):
     valid_combos  = list(itertools.product(*valid_values))
     return valid_combos
 
-    
+#variables es una lista de listas, condicionales una lista de diccionarios; variables[0] deberia ser la lista de variables que se usan en condicionales[0]
+#
+
+#
+def probVar(df,var,nombres_fijas,valores_fijas,rb):
+    valores_var = lb.find_variables(df,var)
+    to_return = {}
+    factores = rb.conds
+    for valor in valores_var:
+        mult = 1
+        for f in factores:
+            target = (f[0])[0]
+            primers = (f[0])[1]
+            param1 = [var] + nombres_fijas
+            param2 = [valor] + valores_fijas
+            param3 = [target] + primers
+            combos = condicionalFijas(df,param1,param2, param3)
+            for combo in combos:
+                my_cond = f[1]
+                mult = mult * my_cond[combo]
+        to_return[valor] = mult
+    for marginal in rb.marg:
+        if marginal[0][0] == var:
+            marg_values = marginal[1]
+            for v in marg_values:
+                to_return[v] *= marg_values[v] 
+        else:
+            continue
+
+    return to_return
+        
+
+
+
 data = pd.read_csv('weather.csv')
-print(condicionalFijas(data,['outlook','windy'],['overcast','TRUE']))
+#print(condicionalFijas(data,['play','windy'],['yes','TRUE']))
+c = condicional(data,'outlook',['windy','play'],1,True)
+c2 = condicional(data,'play',['outlook','windy'],1,True)
+print(probVar(data,'outlook',['play','windy'],['yes',True],[c,c2],1))
